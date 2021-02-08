@@ -107,8 +107,7 @@
     "variable-name": {
       "options": [
         "ban-keywords",
-        "check-format",
-        "allow-pascal-case"
+        "check-format"
       ]
     },
     "whitespace": {
@@ -147,6 +146,8 @@
       "element",
       "app",
       "kebab-case"
-    ]
+    ],
+    "no-any": true,
+    "template-no-any": true
   }
 }
