@@ -29,6 +29,7 @@ export class HomeComponent {
   }
 
   changeUserName(): void {
-    this.user.firstName = 'Bob';
+    //  Change user in an immutable way so 'onPush' will fire when input ref changes
+    this.user = { ...this.user, firstName: 'Bob' };
   }
 }
