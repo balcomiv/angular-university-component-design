@@ -9,7 +9,10 @@ import { NewsletterService } from '../services/newsletter.service';
       [user]="user"
       (subscribe)="subscribe($event)"
     ></app-newsletter>
-    <button (click)="changeUserName()">Change User Name</button>
+    <br />
+    <button (click)="changeUserName()">Change User Name to Bob</button>
+    <br />
+    <pre>{{ user | json }}</pre>
   `,
   styles: [],
 })

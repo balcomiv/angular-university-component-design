@@ -1,8 +1,15 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { User } from '../interfaces/user';
 
 @Component({
   selector: 'app-newsletter',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <fieldset class="newsletter">
       <legend>Newsletter</legend>
