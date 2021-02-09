@@ -1,28 +1,34 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { User } from '../interfaces/user';
 import { NewsletterService } from '../services/newsletter.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-home',
   template: `
-    <app-newsletter
-      [user]="user"
-      (subscribe)="subscribe($event)"
-    ></app-newsletter>
-    <br />
-    <button (click)="changeUserName()">Change User Name to Bob</button>
-    <br />
-    <pre>{{ user | json }}</pre>
+    <ng-container *ngIf="user$ | async as user">
+      <app-newsletter
+        [user]="user"
+        (subscribe)="subscribe($event)"
+      ></app-newsletter>
+      <br />
+      <button (click)="changeUserName()">Change User Name to Bob</button>
+      <br />
+      <pre>{{ user | json }}</pre>
+    </ng-container>
   `,
   styles: [],
 })
 export class HomeComponent {
-  user: User = {
-    firstName: 'Alice',
-    lastName: 'Smith',
-  };
+  user$: Observable<User>;
 
-  constructor(private newsletterService: NewsletterService) {}
+  constructor(
+    private newsletterService: NewsletterService,
+    private userService: UserService
+  ) {
+    this.user$ = userService.user$;
+  }
 
   subscribe(email: string): void {
     this.newsletterService.subscribe(email);
@@ -30,6 +36,6 @@ export class HomeComponent {
 
   changeUserName(): void {
     //  Change user in an immutable way so 'onPush' will fire when input ref changes
-    this.user = { ...this.user, firstName: 'Bob' };
+    this.userService.loadUser({ firstName: 'Bob', lastName: 'Smith' });
   }
 }
