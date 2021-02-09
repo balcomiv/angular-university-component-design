@@ -5,16 +5,17 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { Observable } from 'rxjs';
 import { User } from '../interfaces/user';
 
 @Component({
   selector: 'app-newsletter',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <fieldset class="newsletter">
+    <fieldset class="newsletter" *ngIf="user$ | async as user">
       <legend>Newsletter</legend>
 
-      <h5>Hello {{ user?.firstName }}, enter your email below to subscribe:</h5>
+      <h5>Hello {{ user.firstName }}, enter your email below to subscribe:</h5>
       <form>
         <input
           #email
@@ -35,10 +36,9 @@ import { User } from '../interfaces/user';
   styles: [],
 })
 export class NewsletterComponent {
-  @Input() user?: User;
+  @Input() user$?: Observable<User>;
 
-  @Output()
-  subscribe = new EventEmitter<string>();
+  @Output() subscribe = new EventEmitter<string>();
 
   subscribeToNewsletter(email: string): void {
     this.subscribe.emit(email);

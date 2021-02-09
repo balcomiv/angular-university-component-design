@@ -7,16 +7,14 @@ import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-home',
   template: `
-    <ng-container *ngIf="user$ | async as user">
-      <app-newsletter
-        [user]="user"
-        (subscribe)="subscribe($event)"
-      ></app-newsletter>
-      <br />
-      <button (click)="changeUserName()">Change User Name to Bob</button>
-      <br />
-      <pre>{{ user | json }}</pre>
-    </ng-container>
+    <app-newsletter
+      [user$]="user$"
+      (subscribe)="subscribe($event)"
+    ></app-newsletter>
+    <br />
+    <button (click)="changeUserName()">Change User Name to Bob</button>
+    <br />
+    <!-- <pre>{{ user | json }}</pre> -->
   `,
   styles: [],
 })
